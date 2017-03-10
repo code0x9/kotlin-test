@@ -4,7 +4,7 @@ buildscript {
 		springBootVersion = '1.5.2.RELEASE'
 	}
 	repositories {
-		mavenCentral()
+		jcenter()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -21,6 +21,14 @@ apply plugin: 'org.springframework.boot'
 jar {
 	baseName = 'kotlin-demo'
 	version = '0.0.1-SNAPSHOT'
+}
+
+springBoot {
+	mainClass = 'com.ls.KotlinDemoApplicationKt'
+}
+
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
 }
 
 sourceCompatibility = 1.8
