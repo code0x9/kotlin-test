@@ -16,8 +16,8 @@ class GreetingController {
 
     @RequestMapping("/greeting")
     fun Greeting(@RequestParam(value = "name", defaultValue = "World") name: String): Greeting {
-        println("dynamic reload!!")
-        return Greeting(counter.incrementAndGet(), "Hello, ${name}!!!")
+        println("dynamic reload..?")
+        return Greeting(counter.incrementAndGet(), "Hello, ${name}!")
     }
 }
 
