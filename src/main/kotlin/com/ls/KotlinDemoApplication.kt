@@ -13,7 +13,7 @@ class GreetingController {
 
     @RequestMapping("/greeting")
     fun Greeting(@RequestParam(value = "name", defaultValue = "World") name: String): Greeting {
-        println("dynamic reload...")
+        println("dynamic reload!!")
         return Greeting(1, name)
     }
 }
