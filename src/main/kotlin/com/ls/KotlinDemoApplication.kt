@@ -14,9 +14,8 @@ class GreetingController {
 
     val counter = AtomicLong()
 
-    @RequestMapping("/greeting")
+    @RequestMapping("/")
     fun Greeting(@RequestParam(value = "name", defaultValue = "World") name: String): Greeting {
-        println("dynamic reload..?")
         return Greeting(counter.incrementAndGet(), "Hello, ${name}!")
     }
 }
