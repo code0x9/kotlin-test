@@ -4,14 +4,15 @@ steps:
 
 - name: gcr.io/cloud-builders/gradle
   args: ['build']
+
+- name: gcr.io/cloud-builders/gsutil
+  args: ['cp', '-r', '/root/.gradle/cache', 'gs://gradle_cache/kotlin_demo']
+
 - name: gcr.io/cloud-builders/docker
   args: ['build',
     '--tag=gcr.io/$PROJECT_ID/kotlin-demo:$SHORT_SHA',
     '--tag=gcr.io/$PROJECT_ID/kotlin-demo:latest',
     '.' ]
-
-- name: gcr.io/cloud-builders/gsutil
-  args: ['cp', '-r', '/root/.gradle/cache', 'gs://gradle_cache/kotlin_demo']
 
 images:
 - gcr.io/$PROJECT_ID/kotlin-demo
