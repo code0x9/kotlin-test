@@ -1,6 +1,6 @@
 steps:
 - name: gcr.io/cloud-builders/gsutil
-  args: ['cp', 'gs://gradle_cache/kotlin_demo', '/root/.gradle/cache']
+  args: ['cp', '-r', 'gs://gradle_cache/kotlin_demo', '/root/.gradle/cache']
 
 - name: gcr.io/cloud-builders/gradle
   args: ['build']
@@ -11,7 +11,7 @@ steps:
     '.' ]
 
 - name: gcr.io/cloud-builders/gsutil
-  args: ['cp', '/root/.gradle/cache', 'gs://gradle_cache/kotlin_demo']
+  args: ['cp', '-r', '/root/.gradle/cache', 'gs://gradle_cache/kotlin_demo']
 
 images:
 - gcr.io/$PROJECT_ID/kotlin-demo
