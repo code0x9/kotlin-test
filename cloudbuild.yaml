@@ -3,8 +3,8 @@ steps:
   args: ['build']
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build',
-    '--tag=gcr.io/$PROJECT_ID/kotlin-demo:$SHORT_SHA']
-    '--tag=gcr.io/$PROJECT_ID/kotlin-demo:latest']
+    '--tag=gcr.io/$PROJECT_ID/kotlin-demo:$SHORT_SHA',
+    '--tag=gcr.io/$PROJECT_ID/kotlin-demo:latest',
     '.' ]
 images:
 - 'gcr.io/$PROJECT_ID/kotlin-demo'
