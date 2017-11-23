@@ -1,5 +1,6 @@
 FROM openjdk:8-jdk
 
+RUN /bin/ls
 COPY build/libs/*.jar /app/
 WORKDIR /app
 
