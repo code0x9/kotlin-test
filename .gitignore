@@ -2,7 +2,10 @@
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 
-### STS ###
+## jrebel
+rebel.xml
+
+## spring
 .apt_generated
 .classpath
 .factorypath
@@ -10,16 +13,8 @@
 .settings
 .springBeans
 
-### IntelliJ IDEA ###
+## jetbrains
 .idea
 *.iws
 *.iml
 *.ipr
-
-### NetBeans ###
-nbproject/private/
-build/
-nbbuild/
-dist/
-nbdist/
-.nb-gradle/

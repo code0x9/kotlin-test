@@ -1,4 +1,4 @@
-package com.ls
+package com.mark.study.gcp
 
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -7,17 +7,16 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.util.concurrent.atomic.AtomicLong
 
-data class Greeting(val id:Long, val content:String)
+data class Greeting(val id: Long, val content: String)
 
 @RestController
 class GreetingController {
 
-    val counter = AtomicLong()
+    private val counter = AtomicLong()
 
     @RequestMapping("/")
-    fun Greeting(@RequestParam(value = "name", defaultValue = "World") name: String): Greeting {
-        return Greeting(counter.incrementAndGet(), "Hello, ${name}!")
-    }
+    fun greeting(@RequestParam(value = "name", defaultValue = "World") name: String) =
+            Greeting(counter.incrementAndGet(), "Hello, $name!")
 }
 
 @SpringBootApplication
