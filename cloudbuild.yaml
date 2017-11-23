@@ -5,3 +5,5 @@ steps:
   args: ['build', '--tag=gcr.io/$PROJECT_ID/kotlin-demo', '.' ]
 images:
 - 'gcr.io/$PROJECT_ID/kotlin-demo'
+tags:
+- '$SHORT_SHA'
