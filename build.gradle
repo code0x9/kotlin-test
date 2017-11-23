@@ -33,6 +33,10 @@ dependencies {
     testCompile group: "org.springframework.boot", name: "spring-boot-starter-test", version: springBootVersion
 }
 
+jar {
+    archiveName = 'kotlin-demo.jar'
+}
+
 task wrapper(type: Wrapper) {
 	gradleVersion = '4.3.1'
 }
