@@ -1,7 +1,6 @@
 FROM openjdk:8-jdk
 
 COPY build/libs/kotlin-demo.jar /app/kotlin-demo.jar
-RUN /bin/ls /app
 WORKDIR /app
 
 EXPOSE 8080
