@@ -1,0 +1,12 @@
+FROM openjdk:8-jdk
+
+WORKDIR /app
+
+COPY gradle /app/gradle
+COPY *.gradle /app/
+COPY gradlew* /app/
+COPY src/main/kotlin/com/mark/study/gcp/KotlinDemoApplication.kt /app/src/main/kotlin/com/mark/study/gcp/KotlinDemoApplication.kt
+RUN ["./gradlew", "-no-daemon", "build"]
+
+COPY src /app/src
+RUN ["./gradlew", "-no-daemon", "build"]
