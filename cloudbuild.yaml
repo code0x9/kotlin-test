@@ -1,21 +1,8 @@
 steps:
-- name: alpine
-  args: ['mkdir', '.gradle']
-
-- name: gcr.io/cloud-builders/gsutil
-  args: ['-m', 'cp', '-r', 'gs://gradle_cache_us/kotlin_demo/', '.gradle/']
-
 - name: java:8
   env: ['GRADLE_USER_HOME=.gradle']
   entrypoint: 'bash'
   args: ['-c', './gradlew --no-daemon build']
-
-- name: java:8
-  entrypoint: 'bash'
-  args: ['-c', 'ls -al .gradle; ls -alR .gradle/caches']
-
-- name: gcr.io/cloud-builders/gsutil
-  args: ['-m', 'cp', '-r', '.gradle', 'gs://gradle_cache_us/kotlin_demo']
 
 - name: gcr.io/cloud-builders/docker
   args: ['build',
