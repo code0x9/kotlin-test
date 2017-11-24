@@ -1,6 +1,7 @@
 steps:
 - name: gcr.io/cloud-builders/gsutil
-  args: ['cp', '-r', 'gs://gradle_cache/kotlin_demo', '.gradle']
+  args: ['rsync', '-r', 'gs://gradle_cache/kotlin_demo', '.gradle']
+#  args: ['cp', '-r', 'gs://gradle_cache/kotlin_demo', '.gradle']
 
 - name: java:8
   env: ['GRADLE_USER_HOME=.gradle']
@@ -12,7 +13,8 @@ steps:
   args: ['-c', 'ls -al .gradle; ls -al .gradle/caches']
 
 - name: gcr.io/cloud-builders/gsutil
-  args: ['cp', '-r', '.gradle', 'gs://gradle_cache/kotlin_demo']
+#  args: ['cp', '-r', '.gradle', 'gs://gradle_cache/kotlin_demo']
+  args: ['rsync', '-d-', '-r', '.gradle', 'gs://gradle_cache/kotlin_demo']
 
 - name: gcr.io/cloud-builders/docker
   args: ['build',
