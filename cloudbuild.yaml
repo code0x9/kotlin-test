@@ -1,22 +1,18 @@
 steps:
 - name: gcr.io/cloud-builders/gsutil
-  args: ['cp', '-r', 'gs://gradle_cache/kotlin_demo', 'gradle/cache']
+  args: ['cp', '-r', 'gs://gradle_cache/kotlin_demo', '.gradle']
 
-#- name: gcr.io/cloud-builders/gradle
-#  env: ['GRADLE_USER_HOME=/tmp/gradle']
-#  args: ['--no-daemon', 'build']
 - name: java:8
-  env: ['GRADLE_USER_HOME=gradle']
+  env: ['GRADLE_USER_HOME=.gradle']
   entrypoint: 'bash'
   args: ['-c', './gradlew --no-daemon build']
 
 - name: java:8
-  env: ['GRADLE_USER_HOME=gradle']
   entrypoint: 'bash'
-  args: ['-c', 'ls -al gradle; ls -al gradle/cache']
+  args: ['-c', 'ls -al .gradle; ls -al .gradle/caches']
 
 - name: gcr.io/cloud-builders/gsutil
-  args: ['cp', '-r', 'gradle/cache', 'gs://gradle_cache/kotlin_demo']
+  args: ['cp', '-r', '.gradle', 'gs://gradle_cache/kotlin_demo']
 
 - name: gcr.io/cloud-builders/docker
   args: ['build',
