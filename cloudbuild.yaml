@@ -1,4 +1,7 @@
 steps:
+- name: alpine
+  args: ['mkdir', '.gradle']
+
 - name: gcr.io/cloud-builders/gsutil
   args: ['rsync', '-r', 'gs://gradle_cache/kotlin_demo/', '.gradle/']
 #  args: ['cp', '-r', 'gs://gradle_cache/kotlin_demo', '.gradle']
