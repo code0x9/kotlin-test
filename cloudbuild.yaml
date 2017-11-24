@@ -13,7 +13,7 @@ steps:
 
 - name: java:8
   entrypoint: 'bash'
-  args: ['-c', 'ls -al .gradle; ls -al .gradle/caches']
+  args: ['-c', 'ls -al .gradle; ls -alR .gradle/caches']
 
 #- name: gcr.io/cloud-builders/gsutil
 #  args: ['rsync', '-d', '-r', '.gradle/', 'gs://gradle_cache/kotlin_demo/']
@@ -21,10 +21,10 @@ steps:
 
 - name: gcr.io/cloud-builders/docker
   args: ['build',
-    '--tag', 'asia.gcr.io/$PROJECT_ID/kotlin-demo:$SHORT_SHA',
-    '--tag', 'asia.gcr.io/$PROJECT_ID/kotlin-demo:latest',
+    '--tag', 'gcr.io/$PROJECT_ID/kotlin-demo:$SHORT_SHA',
+    '--tag', 'gcr.io/$PROJECT_ID/kotlin-demo:latest',
     '.' ]
 
 images:
-- asia.gcr.io/$PROJECT_ID/kotlin-demo:$SHORT_SHA
-- asia.gcr.io/$PROJECT_ID/kotlin-demo:latest
+- gcr.io/$PROJECT_ID/kotlin-demo:$SHORT_SHA
+- gcr.io/$PROJECT_ID/kotlin-demo:latest
