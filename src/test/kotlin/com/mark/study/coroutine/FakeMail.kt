@@ -35,6 +35,11 @@ suspend fun sendEmailSuspending(): Boolean {
     return sendStatus.await()
 }
 
+val dateFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
+fun printWithTimestamp(msg: String) {
+    println("${dateFormatter.format(Date())} | $msg")
+}
+
 fun main(args: Array<String>) = runBlocking(CommonPool) {
     printWithTimestamp("Start")
     val job = launch(CommonPool) {
@@ -43,9 +48,4 @@ fun main(args: Array<String>) = runBlocking(CommonPool) {
     }
     job.join()
     printWithTimestamp("Finished")
-}
-
-val dateFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
-fun printWithTimestamp(msg: String) {
-    println("${dateFormatter.format(Date())} | $msg")
 }
