@@ -9,6 +9,7 @@ ext {
     junitJupiterVersion = '5.0.2'
     junitPlatformVersion = '1.0.2'
     kotlinVersion = '1.2.10'
+    kotlinCoroutinesVersion = '0.20'
     springBootVersion = '1.5.9.RELEASE'
 }
 
@@ -28,8 +29,9 @@ repositories {
 }
 
 dependencies {
-    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jre8', version: kotlinVersion
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: kotlinVersion
     compile group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: kotlinVersion
+    compile group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: kotlinCoroutinesVersion
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow', version: springBootVersion
 
