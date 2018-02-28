@@ -1,19 +1,21 @@
 plugins {
-	id 'org.jetbrains.kotlin.jvm' version '1.2.10'
-	id 'org.jetbrains.kotlin.plugin.allopen' version '1.2.10'
+    id 'org.jetbrains.kotlin.jvm' version '1.2.21'
+    id "org.jetbrains.kotlin.plugin.allopen" version "1.2.21"
+    id "org.jetbrains.kotlin.plugin.spring" version "1.2.21"
     id 'org.mikeneck.junit.starter.normal' version '5.0.2'
-    id 'org.springframework.boot' version '1.5.9.RELEASE'
+    id 'org.springframework.boot' version '1.5.10.RELEASE'
 }
 
 ext {
     junitJupiterVersion = '5.0.2'
-    junitPlatformVersion = '1.0.2'
-    kotlinVersion = '1.2.10'
+    junitPlatformVersion = '1.0.3'
+    kotlinVersion = '1.2.21'
     kotlinCoroutinesVersion = '0.20'
-    springBootVersion = '1.5.9.RELEASE'
+    springBootVersion = '1.5.10.RELEASE'
 }
 
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 compileKotlin {
     kotlinOptions.jvmTarget = '1.8'
@@ -23,31 +25,43 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = '1.8'
 }
 
+junitPlatform {
+    platformVersion '1.0.3'
+    enableStandardTestTask true
+}
+
 repositories {
-	jcenter()
+    jcenter()
     maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: kotlinVersion
-    compile group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: kotlinVersion
-    compile group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: kotlinCoroutinesVersion
+    // spring boot
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-undertow', version: springBootVersion
 
-    testCompile group: 'com.github.sbrannen', name: 'spring-test-junit5', version: '1.0.2'
-    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitJupiterVersion
-    testCompile group: 'org.junit.platform', name: 'junit-platform-runner', version: junitPlatformVersion
-    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootVersion
+    // kotlin
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib-jdk8', version: kotlinVersion
+    compile group: 'org.jetbrains.kotlin', name: 'kotlin-reflect', version: kotlinVersion
+    compile group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: kotlinCoroutinesVersion
 
-    testRuntime group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junitJupiterVersion
-
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootVersion, {
+        exclude module: 'commons-logging'
+    }
+    testCompile group: 'com.github.sbrannen', name: 'spring-test-junit5', version: junitPlatformVersion
+    testCompile group: 'com.google.truth', name: 'truth', version: '0.39'
 }
 
 jar {
-    archiveName = 'kotlin-demo.jar'
+    archiveName = 'kotlin-test.jar'
+}
+
+kotlin {
+    experimental {
+        coroutines 'enable'
+    }
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '4.4'
+    gradleVersion = '4.5.1'
 }

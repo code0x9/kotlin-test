@@ -6,10 +6,10 @@ steps:
 
 - name: gcr.io/cloud-builders/docker
   args: ['build',
-    '--tag', 'asia.gcr.io/$PROJECT_ID/kotlin-demo:$SHORT_SHA',
-    '--tag', 'asia.gcr.io/$PROJECT_ID/kotlin-demo:latest',
+    '--tag', 'asia.gcr.io/$PROJECT_ID/kotlin-test:$SHORT_SHA',
+    '--tag', 'asia.gcr.io/$PROJECT_ID/kotlin-test:latest',
     '.' ]
 
 images:
-- asia.gcr.io/$PROJECT_ID/kotlin-demo:$SHORT_SHA
-- asia.gcr.io/$PROJECT_ID/kotlin-demo:latest
+- asia.gcr.io/$PROJECT_ID/kotlin-test:$SHORT_SHA
+- asia.gcr.io/$PROJECT_ID/kotlin-test:latest
