@@ -1,31 +1,26 @@
 steps:
-## restore cache
-- name: gcr.io/cloud-builders/gsutil
-  entrypoint: 'bash'
+## pull built image for docker build cache
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'sh'
   args:
     - '-c'
-    - 'gsutil -m cp -r gs://mark-build-cache/gradle /root/.gradle || true'
+    - 'docker pull asia.gcr.io/$PROJECT_ID/kotlin-test/build || true'
 
 ## build
-- name: openjdk:8-jdk
-  entrypoint: 'bash'
-  args:
-    - '-c'
-    - './gradlew --no-daemon build'
-
-## store cache
-- name: gcr.io/cloud-builders/gsutil
-  entrypoint: 'bash'
-  args:
-    - '-c'
-    - 'gsutil -m cp -r /root/.gradle gs://mark-build-cache/gradle'
-
 - name: gcr.io/cloud-builders/docker
-  args: ['build',
-    '--tag', 'asia.gcr.io/$PROJECT_ID/kotlin-test:$SHORT_SHA',
-    '--tag', 'asia.gcr.io/$PROJECT_ID/kotlin-test:latest',
-    '.' ]
+  entrypoint: 'sh'
+  args:
+    - '-c'
+    - |
+      docker build --cache-from asia.gcr.io/$PROJECT_ID/kotlin-test/build --tag kotlin-test --file Dockerfile.build .
+      docker tag kotlin-test asia.gcr.io/$PROJECT_ID/kotlin-test/build
+
+      docker container create --name kotlin-test kotlin-test
+      docker container cp kotlin-test:/usr/src/app/build/libs/kotlin-test.jar .
+      docker container rm -f kotlin-test
+
+      docker build --tag asia.gcr.io/$PROJECT_ID/kotlin-test:$SHORT_SHA .
 
 images:
+  - asia.gcr.io/$PROJECT_ID/kotlin-test/build
   - asia.gcr.io/$PROJECT_ID/kotlin-test:$SHORT_SHA
-  - asia.gcr.io/$PROJECT_ID/kotlin-test:latest

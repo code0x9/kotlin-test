@@ -1,0 +1,12 @@
+FROM openjdk:8-jdk
+
+ENV APP_HOME=/usr/src/app/
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+COPY *.gradle gradlew ${APP_HOME}
+COPY gradle ${APP_HOME}/gradle
+RUN ./gradlew --no-daemon build -x :bootRepackage -x test --continue
+
+COPY . .
+RUN ./gradlew --no-daemon build

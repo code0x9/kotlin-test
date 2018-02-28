@@ -1,0 +1,31 @@
+steps:
+## restore cache
+- name: gcr.io/cloud-builders/gsutil
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - 'gsutil -m cp -r gs://mark-build-cache/gradle /root/.gradle || true'
+
+## build
+- name: openjdk:8-jdk
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - './gradlew --no-daemon build'
+
+## store cache
+- name: gcr.io/cloud-builders/gsutil
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - 'gsutil -m cp -r /root/.gradle gs://mark-build-cache/gradle'
+
+- name: gcr.io/cloud-builders/docker
+  args: ['build',
+    '--tag', 'asia.gcr.io/$PROJECT_ID/kotlin-test:$SHORT_SHA',
+    '--tag', 'asia.gcr.io/$PROJECT_ID/kotlin-test:latest',
+    '.' ]
+
+images:
+  - asia.gcr.io/$PROJECT_ID/kotlin-test:$SHORT_SHA
+  - asia.gcr.io/$PROJECT_ID/kotlin-test:latest

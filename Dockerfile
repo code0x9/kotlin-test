@@ -1,9 +1,8 @@
 FROM openjdk:8-jdk
+WORKDIR /usr/src/app
 
-COPY build/libs/kotlin-test.jar /app/kotlin-test.jar
-WORKDIR /app
+COPY kotlin-test.jar .
 
 EXPOSE 8080
-
 ENV JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
-ENTRYPOINT ["java", "-jar", "/app/kotlin-test.jar"]
+ENTRYPOINT ["java", "-jar", "kotlin-test.jar"]
