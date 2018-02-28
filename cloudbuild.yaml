@@ -4,22 +4,21 @@ steps:
   entrypoint: 'bash'
   args:
     - '-c'
-    - |
-      gsutil -m cp -r gs://mark-build-cache/gradle .gradle || true
+    - 'gsutil -m cp -r gs://mark-build-cache/gradle /root/.gradle || true'
 
 ## build
-- name: java:8
-  env: ['GRADLE_USER_HOME=.gradle']
+- name: openjdk:8-jdk
   entrypoint: 'bash'
-  args: ['-c', './gradlew --no-daemon build']
+  args:
+    - '-c'
+    - './gradlew --no-daemon build'
 
 ## store cache
 - name: gcr.io/cloud-builders/gsutil
   entrypoint: 'bash'
   args:
     - '-c'
-    - |
-      gsutil -m cp -r .gradle gs://mark-build-cache/gradle .gradle
+    - 'gsutil -m cp -r .gradle gs://mark-build-cache/gradle /root/.gradle'
 
 - name: gcr.io/cloud-builders/docker
   args: ['build',
