@@ -18,7 +18,7 @@ steps:
   entrypoint: 'bash'
   args:
     - '-c'
-    - 'gsutil -m cp -r .gradle gs://mark-build-cache/gradle /root/.gradle'
+    - 'gsutil -m cp -r /root/.gradle gs://mark-build-cache/gradle'
 
 - name: gcr.io/cloud-builders/docker
   args: ['build',
