@@ -5,7 +5,7 @@ steps:
   args:
     - '-c'
     - |
-      gsutil cp -m -r gs://mark-build-cache/gradle .gradle || true
+      gsutil -m cp -r gs://mark-build-cache/gradle .gradle || true
 
 ## build
 - name: java:8
@@ -19,7 +19,7 @@ steps:
   args:
     - '-c'
     - |
-      gsutil cp -m -r .gradle gs://mark-build-cache/gradle .gradle
+      gsutil -m cp -r .gradle gs://mark-build-cache/gradle .gradle
 
 - name: gcr.io/cloud-builders/docker
   args: ['build',
