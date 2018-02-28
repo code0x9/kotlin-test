@@ -1,8 +1,25 @@
 steps:
+## restore cache
+- name: gcr.io/cloud-builders/gsutil
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      gsutil cp -r gs://mark-build-cache/gradle .gradle || true
+
+## build
 - name: java:8
   env: ['GRADLE_USER_HOME=.gradle']
   entrypoint: 'bash'
   args: ['-c', './gradlew --no-daemon build']
+
+## store cache
+- name: gcr.io/cloud-builders/gsutil
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      gsutil cp -r .gradle gs://mark-build-cache/gradle .gradle
 
 - name: gcr.io/cloud-builders/docker
   args: ['build',
@@ -11,5 +28,5 @@ steps:
     '.' ]
 
 images:
-- asia.gcr.io/$PROJECT_ID/kotlin-test:$SHORT_SHA
-- asia.gcr.io/$PROJECT_ID/kotlin-test:latest
+  - asia.gcr.io/$PROJECT_ID/kotlin-test:$SHORT_SHA
+  - asia.gcr.io/$PROJECT_ID/kotlin-test:latest
