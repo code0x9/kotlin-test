@@ -1,16 +1,12 @@
 plugins {
-    alias(libs.plugins.kotlin)
-    application
+  alias(libs.plugins.kotlin)
+  application
 }
 
-kotlin {
-    jvmToolchain(21)
-}
+sourceSets { main { resources { srcDirs("${projectDir}/template") } } }
 
-repositories {
-    mavenCentral()
-}
+kotlin { jvmToolchain(21) }
 
-application {
-    mainClass = "com.mark.study.AppKt"
-}
+repositories { mavenCentral() }
+
+application { mainClass = "com.mark.study.AppKt" }
